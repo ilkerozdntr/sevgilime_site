@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<title>Sevgilime 🤍</title>
+
+<style>
+body {
+  background-color: #fdf2f8;
+  font-family: 'Segoe UI', Arial, sans-serif;
+  text-align: center;
+  padding: 60px;
+  overflow-x: hidden;
+}
+
+/* KALP YAĞMURU */
+.heart-rain {
+  position: fixed;
+  top: -10px;
+  color: #ff4d6d;
+  animation: fall linear forwards;
+  z-index: 0;
+  opacity: 0.8;
+}
+@keyframes fall {
+  to { transform: translateY(110vh); }
+}
+
+/* GİZLE */
+#icerik { display: none; position: relative; z-index: 2; }
+
+/* ŞİFRE */
+#sifreEkrani {
+  max-width: 400px;
+  margin: 120px auto;
+  position: relative;
+  z-index: 2;
+}
+
+input {
+  padding: 12px;
+  width: 80%;
+  font-size: 18px;
+  border-radius: 20px;
+  border: 1px solid #ccc;
+  text-align: center;
+}
+
+button {
+  background-color: #d6336c;
+  color: white;
+  border: none;
+  padding: 12px 26px;
+  font-size: 18px;
+  border-radius: 30px;
+  cursor: pointer;
+  margin-top: 20px;
+}
+button:hover { background-color: #c2255c; }
+
+h1 { color: #d6336c; font-size: 42px; }
+
+p {
+  font-size: 20px;
+  color: #495057;
+  max-width: 650px;
+  margin: 20px auto;
+  line-height: 1.7;
+}
+
+/* KALP */
+.heart {
+  font-size: 60px;
+  animation: beat 1s infinite;
+}
+@keyframes beat { 50% { transform: scale(1.2); } }
+
+/* FOTO KALP */
+.kalp {
+  width: 260px;
+  height: 260px;
+  margin: 30px auto;
+}
+.kalp img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  clip-path: path("M130 235 L20 125 A55 55 0 0 1 130 65 A55 55 0 0 1 240 125 Z");
+}
+
+/* SAYAÇ */
+.sayac {
+  font-size: 22px;
+  color: #d6336c;
+  font-weight: bold;
+}
+
+/* AÇILIŞ */
+.fade {
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeIn 1.5s ease forwards;
+}
+.delay1 { animation-delay: .3s; }
+.delay2 { animation-delay: .6s; }
+.delay3 { animation-delay: .9s; }
+.delay4 { animation-delay: 1.2s; }
+@keyframes fadeIn {
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* 🌙 FİNAL EKRANI */
+#final {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(0,0,0,0.65);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+}
+
+.final-icerik {
+  background: #fff;
+  padding: 40px;
+  border-radius: 25px;
+  max-width: 500px;
+  animation: fadeIn 1s ease forwards;
+}
+
+.final-icerik h2 {
+  color: #d6336c;
+  font-size: 32px;
+}
+
+.final-icerik .kalp-buyuk {
+  font-size: 70px;
+  animation: beat 1s infinite;
+}
+
+.kapat {
+  margin-top: 20px;
+  background: #adb5bd;
+}
+
+/* 📝 MEKTUP EKRANI */
+#mektup {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(0,0,0,0.65);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 11;
+}
+
+#mektup .final-icerik {
+  background: #fff;
+  padding: 40px;
+  border-radius: 25px;
+  max-width: 500px;
+  animation: fadeIn 1s ease forwards;
+  text-align: center;
+}
+
+#mektup h2 {
+  color: #d6336c;
+  font-size: 32px;
+}
+
+#mektup p {
+  font-size: 20px;
+  color: #495057;
+  line-height: 1.6;
+  margin: 20px 0;
+}
+
+#mektup .kapat {
+  margin-top: 20px;
+  background: #adb5bd;
+  color: white;
+  border: none;
+  padding: 12px 26px;
+  font-size: 18px;
+  border-radius: 30px;
+  cursor: pointer;
+}
+</style>
+</head>
+
+<body>
+
+<!-- 🎵 MÜZİK -->
+<audio id="bgMusic" loop>
+  <source src="muzik.mp3" type="audio/mpeg">
+</audio>
+
+<!-- 🔐 ŞİFRE -->
+<div id="sifreEkrani">
+  <h1>🤍</h1>
+  <p>Bu site sadece sana özel</p>
+  <input type="password" id="sifre" placeholder="Şifreyi gir">
+  <br>
+  <button onclick="kontrol()">Giriş</button>
+  
+</div>
+
+<!-- ❤️ İÇERİK -->
+<div id="icerik">
+  <h1 class="fade delay1">Canımdan Çok Sevdiğim 🤍</h1>
+  <div class="heart fade delay2">❤️</div>
+
+  <div class="kalp fade delay2">
+    <img src="askim.jpg">
+  </div>
+
+  <div class="sayac fade delay3" id="gunSayaci"></div>
+
+  <p class="fade delay4">
+    Bu siteyi sana kendi ellerimle yaptım.<br>
+    Seni düşündükçe kalbim yumuşuyor.
+  </p>
+
+  <!-- 💌 SON BİR ŞEY BUTONU -->
+  <button class="fade delay4" onclick="finalAc()">Son bir şey… 🤍</button>
+
+  <!-- 📝 MEKTUP BUTONU -->
+  <button class="fade delay4" onclick="mektupAc()" style="background:#ff85c0; color:white; border:none; padding:12px 26px; border-radius:30px; cursor:pointer; margin-top:15px;">
+    Mektubum ✉️
+  </button>
+</div>
+
+<!-- 🌙 FİNAL -->
+<div id="final">
+  <div class="final-icerik">
+    <div class="kalp-buyuk">❤️</div>
+    <h2>Sonsuza kadar</h2>
+    <p>
+      Bu site bitebilir…<br>
+      ama sana olan sevgim bitmez.<br><br>
+      Hayatımın en güzel tesadüfü sensin.<br><br>
+      <b>İyi ki varsın, sevgilim 🤍</b>
+    </p>
+    <button class="kapat" onclick="finalKapat()">Kapat</button>
+  </div>
+</div>
+
+<!-- 📝 MEKTUP EKRANI -->
+<div id="mektup">
+  <div class="final-icerik" style="max-height:80vh; overflow-y:auto; text-align:left;">
+    <h2>Sana olan mektubum 🤍</h2>
+    <p>
+      Biricik sevgilim, sen bunu okurken ben seni tepkini meraklı bir şekilde bekliyorum. 
+      Senle tanıştığımız ilk gün, hayatımın bu kadar önemli bir parçası olacağını bilmiyordum; iyi ki de tanımışım seni. 
+      Bana yazdığın mektup geliyor aklıma, bunu okudukça yazdığın cümleler bana olan sevgin geliyor. 
+      Sana olan sevgimi kelimelere sığdırmam imkansız. Hayatımdaki her gün için, bana kattığın her şey için teşekkür ederim.
+    </p>
+    <p>
+      Seninle tanıştıktan sonra anladım ki bazı insanlar hayata sonradan değil, sanki hep oradaymış gibi giriyor. 
+      Varlığın o kadar doğal, o kadar tamamlayıcı ki seni sevmek hiç zor gelmedi bana. 
+      Gülüşünle içim ferahlıyor, sesini duyduğumda günüm aydınlanıyor. Yanımda olmasan bile kalbimde hep sen varsın.
+    </p>
+    <p>
+      Bazen sadece sessizce seni düşünmek bile yetiyor bana. 
+      Çünkü biliyorum, aynı gökyüzüne bakıyoruz, aynı hayalleri kuruyoruz. 
+      Hayat her zaman kolay olmayabilir ama seninle her şey daha anlamlı. 
+      Gücümü senin sevginden alıyorum, umudumu senin varlığından.
+    </p>
+    <p>
+      Şunu bilmeni istiyorum sevgilim; ne olursa olsun, hangi yollardan geçersek geçelim, kalbim hep sana ait olacak. 
+      Seni bugünümle, yarınımla, sabrımla ve tüm sevgimle seviyorum. <br>
+      İyi ki benimlesin… iyi ki <b>biz</b> olmuşuz 🤍
+    </p>
+    <button class="kapat" onclick="mektupKapat()">Kapat</button>
+  </div>
+</div>
+
+<script>
+/* KALP YAĞMURU */
+let interval = setInterval(kalpYagdir, 250);
+function kalpYagdir() {
+  const h = document.createElement("div");
+  h.className = "heart-rain";
+  h.innerText = "❤️";
+  h.style.left = Math.random() * 100 + "vw";
+  h.style.fontSize = (16 + Math.random() * 20) + "px";
+  h.style.animationDuration = (3 + Math.random() * 3) + "s";
+  document.body.appendChild(h);
+  setTimeout(() => h.remove(), 6000);
+}
+setTimeout(() => clearInterval(interval), 7000);
+
+/* ŞİFRE */
+const dogruSifre = "rabia";
+function kontrol() {
+  if (sifre.value === dogruSifre) {
+    sifreEkrani.style.display = "none";
+    icerik.style.display = "block";
+    gunHesapla();
+    bgMusic.volume = 0.25;
+    bgMusic.play();
+  } else {
+    alert("Yanlış şifre biricik sevgilim en çok kullandığımız kelime hepsi küçük 🤍");
+  }
+}
+
+/* SAYAÇ */
+function gunHesapla() {
+  const t = new Date(2024, 10, 15);
+  const b = new Date();
+  gunSayaci.innerText =
+    Math.floor((b - t) / (1000*60*60*24)) + " gündür birlikteyiz 🤍";
+}
+
+/* 💌 FİNAL */
+function finalAc() {
+  document.getElementById("final").style.display = "flex";
+}
+function finalKapat() {
+  document.getElementById("final").style.display = "none";
+}
+
+/* 📝 MEKTUP */
+function mektupAc() {
+  document.getElementById("mektup").style.display = "flex";
+}
+function mektupKapat() {
+  document.getElementById("mektup").style.display = "none";
+}
+</script>
+
+</body>
+</html>
